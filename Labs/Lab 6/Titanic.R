@@ -1,11 +1,17 @@
 library(rpart)
 
 data("Titanic")
-df <- data.frame(Titanic)
+head(Titanic)
 
-rpart <- rpart(Survived ~., data=df)
+rpart <- rpart(Survived ~., data=Titanic)
 summary(rpart)
 plotcp(rpart)
 plot(rpart, compress=T)
 text(rpart, use.n=T)
 
+library(party)
+
+ctree <- ctree(Survived ~., data=Titanic)
+plot(ctree)
+
+cforest(Survived ~., data=Titanic, controls=cforest_control(mtry=2, mincriterion=0))
